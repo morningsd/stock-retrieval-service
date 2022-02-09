@@ -1,10 +1,7 @@
-package edu.demian.stockmarket.service;
+package edu.demian.stockmarket.http;
 
 import edu.demian.stockmarket.dto.Company;
 import edu.demian.stockmarket.dto.CompanyStockInformation;
-import java.util.List;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -21,13 +18,12 @@ public class StockRetrievalService {
     this.restTemplate = restTemplate;
   }
 
-  public ResponseEntity<List<Company>> getCompanies() {
-    return restTemplate.exchange(GET_COMPANIES_SYMBOLS, HttpMethod.GET, null,
-        new ParameterizedTypeReference<List<Company>>() {});
+  public ResponseEntity<Company[]> getCompanies() {
+    return restTemplate.getForEntity(GET_COMPANIES_SYMBOLS, Company[].class);
   }
 
-  public ResponseEntity<CompanyStockInformation> getCompanyStockInformation(String companySymbol) {
-    return restTemplate.getForEntity(getCompanyStockLink(companySymbol), CompanyStockInformation.class);
+  public ResponseEntity<CompanyStockInformation> getCompanyStockInformation(Company company) {
+    return restTemplate.getForEntity(getCompanyStockLink(company.getSymbol()), CompanyStockInformation.class);
   }
 
   public String getCompanyStockLink(String companySymbol) {
