@@ -11,8 +11,10 @@ public class StockRetrievalService {
 
   private final RestTemplate restTemplate;
 
-  private static final String GET_COMPANIES_SYMBOLS = "https://sandbox.iexapis.com/stable/ref-data/symbols?token=Tpk_ee567917a6b640bb8602834c9d30e571&filter=symbol";
-  private static final String GET_COMPANY_STOCK = "https://sandbox.iexapis.com/stable/stock/%s/quote?token=Tpk_ee567917a6b640bb8602834c9d30e571";
+  private static final String GET_COMPANIES_SYMBOLS =
+      "https://sandbox.iexapis.com/stable/ref-data/symbols?token=Tpk_ee567917a6b640bb8602834c9d30e571&filter=symbol";
+  private static final String GET_COMPANY_STOCK =
+      "https://sandbox.iexapis.com/stable/stock/%s/quote?token=Tpk_ee567917a6b640bb8602834c9d30e571";
 
   public StockRetrievalService(RestTemplate restTemplate) {
     this.restTemplate = restTemplate;
@@ -23,7 +25,8 @@ public class StockRetrievalService {
   }
 
   public ResponseEntity<CompanyStockInformation> getCompanyStockInformation(Company company) {
-    return restTemplate.getForEntity(getCompanyStockLink(company.getSymbol()), CompanyStockInformation.class);
+    return restTemplate.getForEntity(
+        getCompanyStockLink(company.getSymbol()), CompanyStockInformation.class);
   }
 
   public String getCompanyStockLink(String companySymbol) {
