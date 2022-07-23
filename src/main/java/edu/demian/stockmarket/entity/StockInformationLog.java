@@ -1,4 +1,4 @@
-package edu.demian.stockmarket.dto;
+package edu.demian.stockmarket.entity;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -27,10 +27,11 @@ import org.hibernate.annotations.CreationTimestamp;
 @AllArgsConstructor
 @Builder
 @Table(name = "company_stock_log")
-public class CompanyStockInformationLog {
+public class StockInformationLog {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @EqualsAndHashCode.Exclude
   private long id;
 
   private String symbol;
@@ -49,8 +50,10 @@ public class CompanyStockInformationLog {
 
   private BigDecimal previousVolume;
 
+  @EqualsAndHashCode.Exclude
   private long latestUpdate;
 
+  @EqualsAndHashCode.Exclude
   @CreationTimestamp
   @Temporal(TemporalType.TIMESTAMP)
   private Date createdAt;
