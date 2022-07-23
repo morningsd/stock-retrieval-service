@@ -3,6 +3,7 @@ package edu.demian.stockmarket.service;
 import edu.demian.stockmarket.dto.CompanyDto;
 import edu.demian.stockmarket.entity.StockInformation;
 import edu.demian.stockmarket.util.HttpUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+@Slf4j
 @Service
 public class StockRetrievalService {
 
@@ -39,8 +41,8 @@ public class StockRetrievalService {
     public CompletableFuture<List<CompanyDto>> getCompaniesAsync() {
         return CompletableFuture.supplyAsync(
                 () -> {
+                    log.debug("Retrieving companies");
                     ResponseEntity<List<CompanyDto>> companies = getCompanies();
-                    System.out.println("Returning company list");
                     return HttpUtils.checkStatusCodeAndReturnResponseBody(companies, HttpStatus.OK);
                 });
     }
