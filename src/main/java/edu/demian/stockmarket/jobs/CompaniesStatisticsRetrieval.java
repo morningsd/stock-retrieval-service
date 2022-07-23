@@ -18,17 +18,19 @@ public class CompaniesStatisticsRetrieval {
 
   @Scheduled(cron = "*/5 * * * * *")
   public void retrieveStatistics() {
-    System.out.println("\n\nTop 5 highest value stocks:");
+    System.out.println("\n\n############################################################################################");
+    System.out.println("Top 5 highest value stocks:");
     List<StockInformation> stockInformationList = stockInformationService.find5WithTheBiggestLatestPrice();
     for (StockInformation csi : stockInformationList) {
-      System.out.println("Symbol: " + csi.getSymbol() + ", name: " + csi.getCompanyName() + ", latest price: " + csi.getLatestPrice());
+      System.out.println(csi);
     }
 
-    System.out.println("Top 5 companies with the biggest change percent:");
+    System.out.println("\nTop 5 companies with the biggest change percent:");
     stockInformationList = stockInformationService.find5WithTheBiggestChangePercent();
     for (StockInformation csi : stockInformationList) {
-      System.out.println("Symbol: " + csi.getSymbol() + ", name: " + csi.getCompanyName() + ", change percent: " + csi.getChangePercent());
+      System.out.println(csi);
     }
+    System.out.println("############################################################################################");
   }
 
 }

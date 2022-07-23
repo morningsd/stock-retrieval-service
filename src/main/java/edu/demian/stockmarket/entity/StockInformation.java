@@ -1,24 +1,23 @@
 package edu.demian.stockmarket.entity;
 
-import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Date;
 
 @Entity
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @EqualsAndHashCode
 @Table(name = "company_stock")
-public class
-StockInformation {
+public class StockInformation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @EqualsAndHashCode.Exclude
     private long id;
 
@@ -32,18 +31,15 @@ StockInformation {
 
     private String currency;
 
-    private BigDecimal avgTotalVolume;
-
-    private BigDecimal latestVolume;
-
-    private BigDecimal previousVolume;
-
     @EqualsAndHashCode.Exclude
     private long latestUpdate;
 
-    @EqualsAndHashCode.Exclude
-    @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
-
+    @Override
+    public String toString() {
+        return "Stock[" + symbol + "]: " +
+                companyName +
+                " --- latest price=" + latestPrice +
+                " " + currency +
+                ", change percent=" + changePercent;
+    }
 }
